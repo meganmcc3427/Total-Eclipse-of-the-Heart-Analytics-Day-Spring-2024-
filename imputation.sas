@@ -42,7 +42,7 @@ proc contents data=aday.brfss;
 						fruit1 fvbeans fvgreen fvorang vegetab1 strength;
 						*verify units weight/height;
 						*alcday5, fruitjui1, fruit1, fvbeans, fvgreen, 
-						fvorang, vegetab1, strength formatting is fucky;
+						fvorang, vegetab1, strength formatting is strange;
 											
 
 %let complete = sleptim1 genhlth physhlth menthlth hlthpln1 persdoc2 medcost checkup1 
@@ -60,21 +60,6 @@ proc sort data=aday.brfss;
 data aday.complete;
 	set aday.brfss;
 	if dispcode = "Completed interview";
-	
-***************************************************************creating binary variable;
-
-proc freq data=aday.complete;
-	tables bphigh;
-	title "High Blood Pressure Frequency";
-	
-***************************************************************cvd by state;
-
-proc freq data=aday.complete;
-	tables x_state*cvd / nocol nopercent nofreq;
-	
-***************************************************************healthcare by state;
-proc freq data=aday.complete;
-	tables x_state*hlthpln / nocol nopercent nofreq;
 	
 ********************************************************************************fixing formatting;
 
